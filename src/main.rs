@@ -1,4 +1,4 @@
-use std::{os::macos::raw, thread::sleep};
+use std::fmt::format;
 
 // API KEY: 8FCG2UU0IWQHWH6G
 use reqwest;
@@ -85,6 +85,8 @@ fn parse_snp(raw_page_data:&str )  {
     let mut comp_symbol: Vec<TextPiece> = Vec::new();
     res.root_section.list_plain_text(&mut comp_info);
     res.root_section.list_double_brace_expressions(&mut comp_symbol);
+
+    // Trim to only table data
     comp_symbol.drain(0..3);
     comp_symbol.drain(comp_symbol.len()-251..);
     comp_info.drain(0..17);
@@ -93,7 +95,9 @@ fn parse_snp(raw_page_data:&str )  {
     // println!("{:?}", out);
 
     // Strip Whitespace and un-needed lines
-for i in 0..comp_info.len() { 
+for i in 0..comp_info.len() {
+
+        // Remove beginning/ending whitespace
         match &mut comp_info[i] {
             TextPiece::Text { formatting, text } => {
                 // println!("Formatting: {}", formatting);
@@ -105,6 +109,8 @@ for i in 0..comp_info.len() {
             }
         }  
     }
+
+    // Remove non-table lines
     comp_info.retain(|variant| {
         let disallowed_lines: Vec<&str> = vec![",", "\\n|", ";"];
         let mut keep = true;
@@ -119,6 +125,7 @@ for i in 0..comp_info.len() {
         keep
     });
 
+    // Combine comp info into single element
     let mut comp_info = comp_info
         .chunks_exact(2)
         .map(|pair| {
@@ -136,21 +143,60 @@ for i in 0..comp_info.len() {
     comp_info = comp_info
         .into_iter()
         .map(|info| {
-            info.replace("||||", "|")
-            info.replace("||", "|");
+            info.replace("||", "|")
         })
         .collect();
+
+    comp_info = comp_info
+        .into_iter()
+        .map(|info| {
+            info.replace("||", "|")
+        })
+        .collect();
+
+    // let symbols: Vec<String> = comp_symbol
+    //     .iter()
+    //     .map(|symbol| match symbol {
+            
+    //     })
+
+    let comp_data_str: Vec<String> = comp_symbol
+        .iter()
+        .zip(comp_info.iter())
+        .map(|(symbol, info)| match symbol {
+            TextPiece::DoubleBraceExpression { tag, attributes } => {
+                if let Some(first_attr) = attributes.get(0) {
+                    if let Some(first_piece) = first_attr.value.pieces.get(0) {
+                        match first_piece {
+                            TextPiece::Text {formatting, text} => format!("{} {}", text, info),
+                            _ => "OTHER".to_string()
+                        }
+                    } else {
+                        "No pieces".to_string()
+                    }
+                } else {
+                    "No attr".to_string()
+                }
+            }
+            other => format!("Err, {}", other)
+        })
+        .collect();
+
+
     for i in 0..comp_info.len() {
-        if i == 1
+        // if i == 2
+        if 10 > i
         {
-            println!("{}, {}", comp_symbol[i], comp_info[i]);
+            // println!("{}, {}", comp_symbol[i], comp_info[i]);
+            println!("{}", comp_data_str[i])
         }
         
     }
     println!("INFO LEN: {}", comp_info.len());
     println!("SYM LEN: {}", comp_symbol.len());
+    println!("Combined LEN: {}", comp_data_str.len());
 
-    struct Comp_data {
+    struct CompData {
         sector: String,
         industry: String,
         date_added: String, //TODO: Date Obj
