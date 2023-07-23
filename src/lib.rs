@@ -3,7 +3,7 @@ mod request;
 use polars_core::prelude::*; //df package
 use anyhow::{Result, anyhow};
 
-/// Gets [List of S&P 500 companies](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)
+/// Gets [List of SnP 500 companies](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)
 /// page data using [MediaWiki's api](https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&prop=revisions&titles=List_of_S%26P_500_companies&formatversion=2&rvprop=content&rvslots=*)
 /// Returns:
 ///     ```
