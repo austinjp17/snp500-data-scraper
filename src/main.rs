@@ -1,23 +1,20 @@
-
+use polars_core::prelude::DataFrame;
 
 // API KEY: 8FCG2UU0IWQHWH6G
 mod snp_list;
 mod helpers;
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<DataFrame, String> {
     let res = snp_list::get_snp_list().await;
+    let mut snp_df = DataFrame::default();
     match res {
         Ok(comp_data) => {
-            println!("Shape: {:?}\nColumns: {:?}\nData Types: {:?}\nFirst Row: {:?}",
-                comp_data.shape() ,
-                comp_data.get_column_names(), 
-                comp_data.dtypes(),
-                comp_data.get_row(comp_data.shape().0-1).unwrap(),
-            )
+            snp_df = comp_data;
         }
         Err(e) => {
-            println!("Error: {e}");
+            println!("Error: {e}")
         }
     }
+    Ok(snp_df)
 }

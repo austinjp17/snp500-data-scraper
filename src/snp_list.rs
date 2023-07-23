@@ -29,17 +29,12 @@ async fn get_raw_snp() -> Result<String, reqwest::Error> {
 
 fn parse_snp(raw_page_data:&str )  -> DataFrame {
     
-    
-    // println!("{}", raw_page_data);
     let raw_page_data = String::from(raw_page_data);
 
     let mut content = raw_page_data.chars().collect::<Vec<_>>();
-    // let content_ 
 
     content.drain(0..12);
     content.drain(content.len()-9..);
-    
-    // 
 
     let content_str = content.iter().collect::<String>();
     

@@ -4,6 +4,11 @@ license = "MIT"
 version = "0.1.1"
 edition = "2021"
 description = "Gets updated basic information the S&P-500 constituations"
+repository = "https://github.com/austinjp17/snp500-data-retrieval"
+keywords = ["snp500", "s&p-500", "snp500 list", "finance", "stocks"]
+categories = ["Finance"]
+rust-version = "1.71.0"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
