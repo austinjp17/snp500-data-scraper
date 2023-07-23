@@ -7,8 +7,6 @@ This is a tool that fetches up-to-date information about the constituents of the
 The Standard & Poor's 500 Index, commonly known as the S&P 500, is a stock market index that tracks the performance of 500 large publicly traded companies in the United States. This program allows you to retrieve key information about the current constituents of the S&P 500 index from Wikipedia. The goal is to provide an easy short-cut to updated information on the United States most tracked financial index.
 
 ## Example
-
-## Example
 ```
 use snp500_data;
 use polars_core::prelude::*;
