@@ -1374,7 +1374,7 @@ dependencies = [
 
 [[package]]
 name = "snp500_data"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "datetime",
  "parse_wiki_text",
