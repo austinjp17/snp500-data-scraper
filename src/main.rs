@@ -4,7 +4,6 @@
 mod snp_list;
 mod helpers;
 
-
 #[tokio::main]
 async fn main() {
     let res = snp_list::get_snp_list().await;
