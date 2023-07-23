@@ -3,9 +3,9 @@ name = "snp500_data"
 version = "0.1.2"
 edition = "2021"
 license = "MIT"
-description = "Gets updated basic information the S&P-500 constituants"
+description = "Gets updated basic information the SnP-500 constituants"
 repository = "https://github.com/austinjp17/snp500-data-retrieval"
-keywords = ["snp500", "s&p-500", "snp500 list", "finance", "stocks"]
+keywords = ["snp500", "symbols", "finance", "stocks"]
 categories = ["Finance"]
 rust-version = "1.71.0"
 

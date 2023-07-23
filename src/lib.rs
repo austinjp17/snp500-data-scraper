@@ -288,5 +288,6 @@ mod tests {
 
         let num_of_constituants = 503;
         assert!(formatted.shape().0 == num_of_constituants);
+        assert_eq!(formatted.get_column_names(), ["symbol", "sector", "industry", "date_added", "cik"])
     }
 }
