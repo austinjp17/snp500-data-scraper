@@ -242,7 +242,7 @@ fn parse_snp(raw_page_data: &str) -> Result<DataFrame> {
             return Err(anyhow!(format!("Error creating Dataframe: {}",e)));
         }
     }
-    snp_data
+    Ok(snp_data)
 }
 
 pub mod fetcher {
@@ -266,13 +266,27 @@ pub mod fetcher {
 }
 
 
+use tokio::task;
+use tokio_test::block_on;
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn it_works() {
-        // let result = add(2, 2);
-        // assert_eq!(result, 4);
+    #[tokio::test]
+    async fn get_raw_data() {
+        let res = get_raw_snp().await
+            .expect("Error getting raw Data");
+        assert!(res.len()>0);
+    }
+
+    #[tokio::test]
+    async fn parse() {
+        let raw_data = get_raw_snp().await
+            .expect("Error getting raw data");
+        let formatted = parse_snp(&raw_data)
+            .expect("Error formatting");
+
+        let num_of_constituants = 503;
+        assert!(formatted.shape().0 == num_of_constituants);
     }
 }
