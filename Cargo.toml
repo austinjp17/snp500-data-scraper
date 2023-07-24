@@ -1,6 +1,6 @@
 [package]
 name = "snp500_data"
-version = "0.1.5"
+version = "0.2.0"
 edition = "2021"
 license = "MIT"
 description = "Gets updated basic information the SnP-500 constituants"

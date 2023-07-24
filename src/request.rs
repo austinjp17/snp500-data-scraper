@@ -1,10 +1,11 @@
 use reqwest;
 use anyhow::{Result, anyhow};
 
-pub async fn make_request(url: &str, _client: reqwest::Client) -> Result<String> {
+pub async fn basic(url: &str) -> Result<String> {
     
     // println!("REQUEST");
     // Send the GET request and await the response
+    let _client = reqwest::Client::new();
     let response = _client.get(url).send().await?;
 
     let mut json_data = String::new();

@@ -1,6 +1,6 @@
 use polars_core::prelude::*; //df package
 use anyhow::{Result, anyhow};
-mod request;
+pub mod request;
 mod parser;
 
 
@@ -29,9 +29,7 @@ async fn get_raw_snp() -> Result<String> {
     // https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=Pet_door&formatversion=2&rvprop=content&rvslots=*");
     // println!("URL: {}", url);
 
-    let client = reqwest::Client::new();
-
-    let page_data = request::make_request(&url, client).await.unwrap();
+    let page_data = request::basic(&url).await.unwrap();
 
     Ok(page_data)
 }
@@ -44,11 +42,10 @@ pub mod group {
     pub fn by_sector (data: &DataFrame) -> GroupBy {
         let grouped = data.groupby(["sector"])
             .expect("grouping failure");
-        println!("??{:?}", grouped.groups());
+        // println!("??{:?}", grouped.groups());
         grouped
     }
 }
-
 
 /// getters continer
 pub mod fetcher {

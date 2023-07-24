@@ -1,6 +1,6 @@
 # SnP 500 Constituents Info Fetcher
 
-This is a tool that fetches up-to-date information about the constituents of the S&P 500 index from Wikipedia. It retrieves minimal essential details: symbol, sector, industry, date added to S&P 500, and CIK identifier for each company and returns them contained in a dataframe with the companies ordered A-Z. 
+This is a simple tool that fetches up-to-date information about the constituents of the S&P 500 index from Wikipedia. It retrieves minimal essential details: symbol, sector, industry, date added to S&P 500, and CIK identifier for each company and returns them contained in a dataframe with the companies ordered A-Z. 
 
 ## Introduction
 
@@ -17,10 +17,9 @@ async fn main() {
 
     // --- Columns ---
     //["symbol", "sector", "industry", "date_added", "cik"] 
-    //[ String , String  ,   String  ,  String     ,String]
+    //[ String , String  ,   String  ,  date     ,String]
     
-    println!("{:?}", test_df.get_column_names()) 
-    println!("{:?}", test_df.get_row(0));
+    println!("{:?}", test_df.head(Some(5)));
 }
 ```
 
