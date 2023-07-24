@@ -1,6 +1,6 @@
 [package]
 name = "snp500_data"
-version = "0.1.2"
+version = "0.1.4"
 edition = "2021"
 license = "MIT"
 description = "Gets updated basic information the SnP-500 constituants"
@@ -22,3 +22,5 @@ parse_wiki_text = "0.1.5"
 datetime = "0.5.2"
 anyhow = "1.0.72"
 tokio-test = "0.4.2"
+polars = {version = "0.31.1", features = ["object"]}
+chrono = "0.4.26"
